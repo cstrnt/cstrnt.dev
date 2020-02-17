@@ -6,7 +6,9 @@ module.exports = {
   siteMetadata: {
     siteTitle: "cstrnt",
     siteTitleAlt: `cstrnt.dev`,
-    author: "Tim Raderschad"
+    author: "Tim Raderschad",
+    siteUrl: "https://cstrnt.dev",
+    siteLanguage: "en"
   },
   plugins: [
     {
