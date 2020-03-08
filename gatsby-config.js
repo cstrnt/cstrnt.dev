@@ -4,11 +4,11 @@ require(`dotenv`).config({
 
 module.exports = {
   siteMetadata: {
-    siteTitle: "cstrnt",
+    siteTitle: 'cstrnt',
     siteTitleAlt: `cstrnt.dev`,
-    author: "Tim Raderschad",
-    siteUrl: "https://cstrnt.dev",
-    siteLanguage: "en"
+    author: 'Tim Raderschad',
+    siteUrl: 'https://cstrnt.dev',
+    siteLanguage: 'en'
   },
   plugins: [
     {
@@ -20,12 +20,12 @@ module.exports = {
             slug: `/blog`
           },
           {
-            title: `About`,
-            slug: `/about`
-          },
-          {
             title: `Uses`,
             slug: `/uses`
+          },
+          {
+            title: `About`,
+            slug: `/about`
           }
         ],
         externalLinks: [
