@@ -1,0 +1,29 @@
+---
+title: "Data-Fetching in React"
+date: 2020-06-15
+slug: "/data-fetching-in-react"
+tags:
+  - React
+  - Data-Fetching
+---
+
+> A single-page application (SPA) is a web application or website that interacts with the web browser by dynamically rewriting the current web page with new data from the web server, instead of the default method of the browser loading entire new pages.
+
+That is wikipedia's definition of a Single Page Application. It implies that fetching data is the selling point of an SPA. And I personally think that we do not see the importance of that fact. Historically we just chose what exists and just used it (looking at you, AJAX).
+
+But there are always people who are never satisfied with the current state and that is why the peeps at facebook invented GraphQL to ease the process of fetching. And many people (including me) love it. But it is a tough world to persuade your technical lead to convert a 3-year-old monolith C#-Backend over to GraphQL, even though you like it so much. It would require a workshop for your whole team and the rewrite would take quite some time. And who would even pay for that? Thats why awesome libraries like _Apollo_ are sadly just a dream. But why should we limit ourselves? I asked myself the same and wanted to get an overview of the current state of data fetching in React! I will have a look at some popular approaches and libraries which I find promising or interesting and I will test and compare them.
+
+My current list looks like the following:
+
+1. Fetch with useState & useEffect
+2. [SWR](https://github.com/zeit/swr) by Zeit
+3. [React-Query](https://github.com/tannerlinsley/react-query) by Tanner Linsley
+4. [React Refetch](https://github.com/heroku/react-refetch) by Heroku
+
+I will be using the [JSON Placeholder](https://jsonplaceholder.typicode.com/)-API to get some mocked data. I prepared a small blog with some styles in react. I will be using the same application for all the libraries / approaches and will link a codesandbox so you can try them out yourself!
+
+If you have any additions or want to / did the same in _insert framework here_ feel free to tweet / msg me on [twitter](http://twitter.com/cstrnt) :)
+
+cheers
+
+Tim

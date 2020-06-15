@@ -1,0 +1,32 @@
+---
+title: "Data-Fetching in React using Hooks"
+date: 2020-06-15
+slug: "/data-fetching-in-react-with-hooks"
+tags:
+  - React
+  - Data-Fetching
+  - Hooks
+---
+
+asdsad
+
+```jsx
+function BlogPosts() {
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState(null);
+
+  useEffect(() => {
+      setLoading(true)
+      fetch('SERVER-URL')
+      .then(response => response.json())
+      .then(data => {
+        setPosts(data);
+        setLoading(false)
+      })
+  }, []);
+
+  return (
+      ...
+  )
+}
+```
