@@ -1,0 +1,43 @@
+---
+title: "Data Fetching in React with SWR"
+date: 2020-06-17
+slug: "/data-fetching-in-react-with-swr"
+tags:
+  - React
+  - Data-Fetching
+---
+
+We will now now have a look at [SWR](https://github.com/vercel/swr) by Vercel (formerly zeit).
+It calls itself _React Hooks for Remote Data Fetching_ which pretty much describes it's purpose.
+SWR makes use of a concept called _stale-while-revalidate_ which allows the UI to feel more reactive as every time
+you call your remote API the hook will return the cached values first while waiting for the response from the server.
+As soon as it got the data from the server it will revalidate the cache and returns the freshest data to the UI. This comes in really handy
+when you change pages (e.g. using react-router) as the data will be loaded from the cache first. This makes it possible to **not** show
+loading spinners every time you change to a page you already visited. But let's get into examples:
+
+### Basic Usage
+
+```jsx
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function Posts() {
+  const { data, error } = useSWR("/posts", fetcher);
+
+  if (error) return <p>failed to load</p>;
+  if (!data) return <p>loading...</p>;
+
+  return (
+      /** render our page with our posts */
+  );
+}
+```
+
+Lets break this code into smaller chunks again:
+
+```jsx
+const { data, error } = useSWR("/posts", fetcher);
+```
+
+Right here we're  
