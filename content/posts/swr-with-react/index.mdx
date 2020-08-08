@@ -40,4 +40,17 @@ Lets break this code into smaller chunks again:
 const { data, error } = useSWR("/posts", fetcher);
 ```
 
-Right here we're  
+Right here we're defining the unique _key_ for that particular query. In our case this is the endpoint of the API
+we are calling. To use SWR properly you should always use the same key for the same request, because SWR uses the _key_ to cache the data. The second argument _fetcher_ is some kind of function which creates a HTTP-Request. In our case it is just `window.fetch`. But you can also use something such as [axios](https://www.npmjs.com/package/axios). the `useSWR` hook then passes the key as the first argument to that fetcher function. Therefore I would recommend adding the base URL to the API your going to call to the fetch function like this:
+
+```js
+const fetcher = (endpoint, ...args) =>
+  fetch(`https://my-api.com${endpoint}`, ...args).then((res) => res.json());
+```
+
+The next pieces are `{ data, error}` which are returned from the hook. Those ones are quite easy as they speak for themselves. `data` is the actual data returned from the server. It also can be `undefined` when the data is still loading. This happens only on the first load because there won't be any loading when getting the data from the cache. 
+`error` will `undefined` if everything is going well, but if there was some kind of error during the fetch call this object will hold the error.
+
+The next step is to give the user feedback what is happening right now. We do this by returning JSX Elements depending on the two variables we got from our hook. First of all we are going to check if there was an error. If so we display an error message or redirect the user. After that we check whether `data` has some values in it. If not, we know that our application is loading (because there is no error) and we can show the user a loading indicator (e.g. a spinner).
+
+And that's it. Pretty clean, huh?
