@@ -14,7 +14,9 @@ export default () => (
       sx={{
         borderRadius: "50%",
         border: "2px solid white",
-        height: "20vh"
+        height: "20vh",
+        width: "20vh",
+        objectFit: "cover"
       }}
       src="/tim.jpeg"
     ></img>
