@@ -1,0 +1,178 @@
+---
+title: '3 TypeScript Tricks I wish I knew when I learned TypeScript'
+date: '2021-10-06'
+tags: ['typescript', 'code']
+draft: false
+summary: 'TypeScript is a big Superset of JavaScript which has many features which might not be shown in every beginner tutorial.
+This post has three of them to make your life easier learning TypeScript.'
+---
+
+## Number 1: Readonly\<T\>
+
+Let’s start with a small example:
+We have a simple function which takes in an array of numbers and returns an array with all elements sorted.
+
+```ts
+function sortNumbers(array: Array<number>) {
+  return array.sort((a, b) => a - b)
+}
+```
+
+Now look at the code below and look if everything looks good. Think about what the console output will be. I recommend taking some time and actually thinking about it!
+
+```ts
+const numbers = [7, 3, 5]
+
+const sortedNumbers = sortNumbers(numbers)
+
+console.log(sortedNumbers)
+console.log(numbers)
+```
+
+The first output is pretty simple. It is `[3, 5, 7]`. But now listen. The second output is the same! And you might be asking: _Why? I defined the array as `const` how can it be changed?_.
+
+Well, arrays and objects are quite special in JavaScript. If you pass them to a function it will pass the reference to the array or object which means it will mutate the original array if you call certain functions like `Array.sort` which are in-place.
+
+Readonly to the rescue 🚀
+
+Let’s change up our code a little bit:
+
+```ts
+function sortNumbers(array: Readonly<Array<number>>) {
+  return array.sort((a, b) => a - b)
+}
+```
+
+This doesn’t compile though. TypeScript gives us the following error `Property ‘sort’ does not exist on type ‘readonly number[]’`
+Which is actually what we want! We are not able to mutate the parameter which leads to zero side effects!
+**Nice**.
+But does this mean we can’t have function which sort our arrays? Of course we can. We only need to sort a copy of our array rather than sorting the array itself. There are many ways to copy an array in JS like the spreading it (`[…array]`), using `array.concat()`, `Array.from(array)` or `array.slice()` . So lets use the spread operator to finish our function so it looks just like this
+
+```ts
+function sortNumbers(array: Readonly<Array<number>>) {
+  return [...array].sort((a, b) => a - b)
+}
+```
+
+And we’re done! Clean code enforced by TypeScript. BTW: This also works with objects!
+
+<small>
+  If you want to learn more about mutability in JS check out this
+  [article](https://hackernoon.com/mutability-and-immutability-in-javascript-explained-in-detail-x7q33ag)
+</small>
+
+## Number 2: Any vs Unknown
+
+When you are using eslint together with TS you might have noticed the message `unexpected any`. At least I was wondering why `any` is bad. How else should you state a a variable can hold any possible value. Let’s look at an example here:
+
+```ts
+const someArray: Array<any> = []
+
+// add some values
+someArray.push(1)
+someArray.push('Hello')
+someArray.push({ age: 42 })
+```
+
+We are creating an array which can potentially have all available type in it. While this might not be the best code ever, let’s just go with it. We add a number, a string and an object. Let’s now look at the code below and think about what will happen:
+
+```ts
+const someArray: Array<any> = []
+
+// ... adding the values
+someArray.forEach((entry) => {
+  console.log(entry.age)
+})
+```
+
+This code is actually valid TypeScript and will compile without any issues. But it will fail at run time. I think this is some kind of false security because you expect things to just work because the TS compiler told you the code is fine.  
+But we can fix this! And the change is actually super simple. Instead of typing the array as `Array<any>`we can just use `Array<unknown>` if we now use the same code but with that change it will look like this
+
+```ts
+const someArray: Array<unknown> = []
+
+// ... adding the values
+
+someArray.forEach((entry) => {
+  console.log(entry.age)
+})
+```
+
+and this code will **not** compile! Instead TypeScript shows the following error when we try to access `entry.age`
+
+```ts
+// ... other code
+
+someArray.forEach((entry) => {
+  // Object is of type 'unknown'
+  console.log(entry.age)
+})
+```
+
+using `unknown` enforces us to check the type (or explicitly casting the value) before we do something with a value with is `unknown`. Let's look at an example:
+
+```ts
+// ... other code
+
+type Human = { name: string; age: number }
+
+someArray.forEach((entry) => {
+  // if it's an object, we know it's a Human
+  if (typeof entry === 'object') {
+    console.log((entry as Human).age)
+  }
+})
+```
+
+In this case we checked whether the value is an object and then access the `.age` property. **Note:** don't use `typeof x === 'object'` to check whether something is a valid object, because it will return `true` for arrays as well.
+
+## Number 3: Typing Objects with Records
+
+When I first started using TS I always had to google how to type an object because I could never remember the solution which looked something like this:
+
+```ts
+interface Person {
+  [key: string]: unknown
+}
+
+const Human: Person = {
+  name: 'Steve',
+  age: 42,
+}
+```
+
+While this is a valid solution to type an Object in TS, I think it’s pretty hard to memoize and also it is pretty limited.  
+For example if I only want to allow certain keys I would go ahead and create a string union like this:
+
+```ts
+type AllowedKeys = 'name' | 'age'
+
+interface Person {
+  [key: AllowedKeys]: unknown
+}
+
+const Human: Person = {
+  name: 'Steve',
+  age: 42,
+}
+```
+
+But, TypeScript doesn’t like this and gives me that error:
+
+`An index signature parameter type cannot be a literal type or generic type. Consider using a mapped object type instead.`
+
+Uhm, what? This is again one of those TypeScript errors which wants you to just close your IDE and go back to plain JS. But there is a solution which will make the code much more readable:
+
+```ts
+type AllowedKeys = 'name' | 'age'
+
+// use a type here instead of interface
+type Person = Record<AllowedKeys, unknown>
+
+const Human: Person = {
+  name: 'Steve',
+  age: 42,
+}
+```
+
+We only had to change from interface to type so we can define a new type and then use the keyword `Record` which takes two generic parameters where the first one is the type of the keys and the second on of the according values. Pretty simple, right? And by the way, if you now add values to `AllowedKeys` it will throw an error in the `Human` Object because it’s missing those properties which is pretty awesome if you ask me!
