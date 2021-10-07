@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mailchimp/mailchimp_marketing": "^3.0.65",
+    "@netlify/plugin-nextjs": "^3.9.0",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/typography": "^0.4.0",
     "autoprefixer": "^10.2.5",
