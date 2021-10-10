@@ -103,6 +103,6 @@ I personally I really like immutability and started loving it when I when I used
 
 Well, just like all other patterns in programming this is a really subjective topic. Each developer likes other languages and patterns and like everything in live there are always pros and cons for using it. One of the cons of immutability is memory management. If we have an array with 10,000 elements and we call `.map` on it, we will have two arrays with 10,000 elements, which means we just doubled the memory used by our application. One other reason is that immutable programming actually takes more effort and might not feel _right_. Why can’t I push to an array? Why does this function exist if I shouldn’t be using it?
 
-## So should I be obsessed about it as well?
+## So should you be obsessed about it as well?
 
 As with everything in the internet, you should never follow someones advice blindly! If you are not forced to write immutable code (e.g. when working with Redux), you can just do what feels right to you. It will take some time and effort to get used to it and I might be really frustrating not to use some functions which you just learned to use. But if you still like the approach, you will probably love [Immer](https://immerjs.github.io/immer/) which is a JavaScript library which makes immutability super easy, because it lets use use mutable code and just takes care about the rest. [Here](https://medium.com/hackernoon/introducing-immer-immutability-the-easy-way-9d73d8f71cb3) is a cool blog post by the creator of Immer which tells you why he created it!
