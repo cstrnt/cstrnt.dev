@@ -46,7 +46,7 @@ function sortNumbers(array: Readonly<Array<number>>) {
 This doesn’t compile though. TypeScript gives us the following error `Property ‘sort’ does not exist on type ‘readonly number[]’`
 Which is actually what we want! We are not able to mutate the parameter which leads to zero side effects!
 **Nice**.
-But does this mean we can’t have function which sort our arrays? Of course we can. We only need to sort a copy of our array rather than sorting the array itself. There are many ways to copy an array in JS like the spreading it (`[…array]`), using `array.concat()`, `Array.from(array)` or `array.slice()` . So lets use the spread operator to finish our function so it looks just like this
+But does this mean we can’t have function which sorts our arrays? Of course we can. We only need to sort a copy of our array rather than sorting the array itself. There are many ways to copy an array in JS like spreading it (`[…array]`), using `array.concat()`, `Array.from(array)` or `array.slice()` . So let's use the spread operator to finish our function so it looks just like this
 
 ```ts
 function sortNumbers(array: Readonly<Array<number>>) {
@@ -63,7 +63,7 @@ And we’re done! Clean code enforced by TypeScript. BTW: This also works with o
 
 ## Number 2: Any vs Unknown
 
-When you are using eslint together with TS you might have noticed the message `unexpected any`. At least I was wondering why `any` is bad. How else should you state a a variable can hold any possible value. Let’s look at an example here:
+When you are using eslint together with TS you might have noticed the message `unexpected any`. At least I was wondering why `any` is bad. How else should you state a variable can hold any possible value. Let’s look at an example here:
 
 ```ts
 const someArray: Array<any> = []
@@ -72,9 +72,10 @@ const someArray: Array<any> = []
 someArray.push(1)
 someArray.push('Hello')
 someArray.push({ age: 42 })
+someArray.push(null)
 ```
 
-We are creating an array which can potentially have all available type in it. While this might not be the best code ever, let’s just go with it. We add a number, a string and an object. Let’s now look at the code below and think about what will happen:
+We are creating an array that can potentially have all available types in it. While this might not be the best code ever, let’s just go with it. We add a number, a string and an object. Let’s now look at the code below and think about what will happen:
 
 ```ts
 const someArray: Array<any> = []
@@ -85,7 +86,11 @@ someArray.forEach((entry) => {
 })
 ```
 
-This code is actually valid TypeScript and will compile without any issues. But it will fail at run time. I think this is some kind of false security because you expect things to just work because the TS compiler told you the code is fine.  
+This code is actually valid TypeScript and will compile without any issues. But it will fail at run time. Why? Because as soon as we loop over an entry which is `null` or `undefined`, and then try to access `.age`, it will throw an error like this:
+
+`Uncaught TypeError: Cannot read properties of null`.
+
+I think this is some kind of false security because you expect things to just work. After all the TS compiler told you the code is fine.  
 But we can fix this! And the change is actually super simple. Instead of typing the array as `Array<any>`we can just use `Array<unknown>` if we now use the same code but with that change it will look like this
 
 ```ts
@@ -98,7 +103,7 @@ someArray.forEach((entry) => {
 })
 ```
 
-and this code will **not** compile! Instead TypeScript shows the following error when we try to access `entry.age`
+and this code will **not** compile! Instead, TypeScript shows the following error when we try to access `entry.age`
 
 ```ts
 // ... other code
@@ -124,7 +129,11 @@ someArray.forEach((entry) => {
 })
 ```
 
-In this case we checked whether the value is an object and then access the `.age` property. **Note:** don't use `typeof x === 'object'` to check whether something is a valid object, because it will return `true` for arrays as well.
+In this case we checked whether the value is an object and then access the `.age` property. And because this is such a abstract topic, here is a little wrap-up:
+
+> `any` is basically saying the TypeScript compiler to not check that bit of code. Avoid using `any` whenever you can! It's better to use `unknown` instead because it enforces you to check the type of the value before using it or else it won't compile!
+
+**Note:** don't use `typeof x === 'object'` to check whether something is a valid object, because it will return `true` for arrays as well.
 
 ## Number 3: Typing Objects with Records
 
@@ -141,7 +150,7 @@ const Human: Person = {
 }
 ```
 
-While this is a valid solution to type an Object in TS, I think it’s pretty hard to memoize and also it is pretty limited.  
+While this is a valid solution to type an Object in TS, I think it’s pretty hard to memorize and also it is pretty limited.  
 For example if I only want to allow certain keys I would go ahead and create a string union like this:
 
 ```ts
