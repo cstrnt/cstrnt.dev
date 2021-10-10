@@ -2,7 +2,7 @@
 title: '3 TypeScript Tricks I wish I knew when I learned TypeScript'
 date: '2021-10-10'
 tags: ['javascript', 'code']
-draft: true
+draft: false
 summary: 'Ever heard about Immutability and wanted to know why and how? Then you came to the right place!'
 ---
 

@@ -1,8 +1,8 @@
 const siteMetadata = {
-  title: "Cstrnt's Coding Corner",
+  title: "cstrnt's coding corner",
   author: 'Tim Raderschad',
-  headerTitle: 'CCC',
-  description: "Cstrnt's Coding Corner",
+  headerTitle: `cstrnt's coding corner`,
+  description: "cstrnt's coding corner",
   language: 'en-us',
   siteUrl: 'https://cstrnt.dev',
   siteRepo: 'https://github.com/cstrnt/cstrnt.dev',
