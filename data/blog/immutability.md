@@ -1,5 +1,5 @@
 ---
-title: '3 TypeScript Tricks I wish I knew when I learned TypeScript'
+title: 'What is Immutability and why I love it'
 date: '2021-10-10'
 tags: ['javascript', 'code']
 draft: false
