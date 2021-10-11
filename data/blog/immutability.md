@@ -1,5 +1,5 @@
 ---
-title: 'What is Immutability and why I love it'
+title: 'How to write better JavaScript using Immutability'
 date: '2021-10-10'
 tags: ['javascript', 'code']
 draft: false
