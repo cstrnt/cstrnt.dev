@@ -12,6 +12,7 @@ const siteMetadata = {
   email: 'tim@cstrnt.dev',
   github: 'https://github.com/cstrnt',
   twitter: 'https://twitter.com/cstrnt',
+  youtube: 'https://www.youtube.com/channel/UC-PV2EN4prpA9uDvjyaucZg',
   locale: 'en-US',
   analytics: {
     // supports plausible, simpleAnalytics or googleAnalytics

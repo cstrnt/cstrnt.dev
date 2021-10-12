@@ -3,7 +3,7 @@ name: Tim Raderschad
 avatar: /static/images/tim.jpg
 occupation: Fullstack WebDev
 email: tim@cstrnt.dev
-twitter: https://twitter.com/cstrnt.dev
+twitter: https://twitter.com/cstrnt
 github: https://github.com/cstrnt.dev
 ---
 
