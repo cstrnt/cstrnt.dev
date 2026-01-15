@@ -1,5 +1,13 @@
 const projectsData = [
   {
+    title: 'Mandelbaum.ai',
+    description: `Mandelbaum.ai is a platform that revolutionizes the way users find products in eCommerce stores.
+    It uses AI to capture user intent and provide personalized product recommendations.
+    It also uses a no-code approach to allow store owners to easily integrate AI into their stores without any coding knowledge.`,
+    imgSrc: '/static/images/mandelbaum.png',
+    href: 'https://mandelbaum.ai',
+  },
+  {
     title: 'Abby',
     description: `Feature Flagging & A/B Testing made for Developers!
     Crafted with the finest Typescript with a SDK that will make you smile.

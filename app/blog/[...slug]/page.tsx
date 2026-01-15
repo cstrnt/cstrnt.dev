@@ -13,7 +13,7 @@ import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 
-const defaultLayout = 'PostLayout'
+const defaultLayout = 'PostSimple'
 const layouts = {
   PostSimple,
   PostLayout,

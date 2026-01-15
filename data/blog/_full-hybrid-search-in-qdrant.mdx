@@ -1,0 +1,20 @@
+---
+title: 'Hybrid Search in Qdrant'
+date: '2025-07-09'
+tags: ['qdrant', 'vector search', 'search', 'typescript']
+draft: false
+summary: 'Combining the power of semantic search with traditional keyword-based search for a better user experience in E-Commerce.'
+---
+
+
+## Introduction
+
+I am currently working on [Mandelbaum](https://mandelbaum.ai) and we're using qdrant as our vector database.
+We're storing products in our qdrant db in order to allow users to semantically search through their product catalogue
+to give them the best search experience in ecommerce stores.
+We use the product title and description as well as some meta information to create embeddings from this data and store those in qdrant.
+If the user then conducts a search we use the user's query, embed this as well using the same embedding model and then use
+qdrants search engine to find the most relevant results.
+
+This works quite well from the get-go but has some serious caveats:
+Since 

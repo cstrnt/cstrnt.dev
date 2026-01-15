@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} ${monoLisa.variable} scroll-smooth`}
+      className={`${space_grotesk.className} ${monoLisa.className} scroll-smooth`}
       suppressHydrationWarning
     >
       <link rel="icon" href="/static/favicons/favicon.ico" />

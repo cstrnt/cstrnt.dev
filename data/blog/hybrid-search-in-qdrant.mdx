@@ -1,0 +1,56 @@
+---
+title: 'Hybrid Search in Qdrant'
+date: '2025-07-09'
+tags: ['qdrant', 'vector search', 'search', 'typescript']
+draft: true
+summary: 'Ever heard about Immutability and wanted to know why and how? Then you came to the right place!'
+---
+
+Structure:
+
+1. Explain what Hybrid Search is
+2. Explain what Semantic Search is and how it works with Qdrant
+3. Shortly explain what Full Text Search is
+
+## Introduction
+
+I am currently building a new way to conduct product search in E-Commerce. Initially we started off by doing it just with semantic search using vector
+but slowly realized that this just doesn't cut it. People are so used to the small search inputs in ecommerce and they learned to
+input keywords rather than text over the last 20 years. This is one of the cases where you have an amazing idea like building a semantic search
+but it will end up not working for users since they don't expect being able to use a search in a way. They see a search bar they will use the search
+bar like they always used to. It's pretty much like a regular door: You see a handle, you will push it down. Even if it's a sliding door.
+If it looks like regular door, people will use it like a regular door.
+Let's start by going into some terms first
+
+### Diving into Semantic Search
+
+Semantic search is a method of searching that focuses on understanding the intent and contextual meaning behind the user's search
+instead of trying to match some keywords. This has been around in the internet for quite some time but has gained a lot of popularity lately
+due to the rise and general availability of public and cheap AI models. In practise this means that a user can search for "colorful shirts for the summer"
+instead of searching for shirt and then narrowing down the colors by using filters. Also the part "for the summer" is something that the
+user has to decide: what kind of fabric is light enough for warm days and whether it should short or longsleeved.
+
+Humans have learned to not search semantically in online shops because those weren't capable of handling those kind of requests.
+But when they enter local shops and ask the personell for guidance (which is essentially using the search in an online shop) they will do exactly that:
+Describe their queries by intent and natural language instead of keywords (Would be hilarious if you talk to a salesperson and simply tell them "shirt gray").
+
+### Changing Human Habits is hard
+
+Now you might be thinking that Semantic Search is the holy grail and solves all problems online shoppers ever had.
+But as all things in life, it's a double edged sword; I've talked about the fact, that humans are used to the fact that the search in ecommerce stores only works with keywords so naturally they will continue doing this at least for an unforseable time in the future. It's a habit that we humans adapted over the last years and habits are quite hard to get rid of (there is a good reason why there is so much literature and apps for exactly this topic).
+And while semantic search algorithms are exceptionally good at finding the right things for semantic queries, they are unfortunately not as great for keyword searches.
+
+### The Technology behind Semantic Search\*\*\*\*
+
+To fully understand why semantic search isn't that great with simple keywords, we first need to understand how it works. Here is a simple breakdown (we'll get into the details later, don't worry):
+
+Essentially what we need to do is compare something and find the closest matches. But we don't want to compare letter by letter but rather compare by context and meaning. Some insanely smart people came up with a solution that sounds actually super simple. You take text and turn in into a vector. And vectors offer multiple ways to compare them and then show how similar they are. And this is completely on a mathematical base. It's still a complex thing to do but this has been solved over 50 years ago! (thank you smart people from the past).
+Now we just need to turn our text (the info from products that are sold and the user's search query) into vectors in **order** to compare them.
+And thanks to the improvements in technology this has become easy as well. There are dedicated embedding models that take in text and return vectors.
+
+This looks like this (simplified version):
+`colorful shirt` --> `[1, 4.5, -3, 5, ...]`
+
+### Bringing the idea to life
+
+So now we know how we can build our own semantic search
